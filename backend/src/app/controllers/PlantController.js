@@ -25,6 +25,20 @@ class PlantController {
         const plant = await Plant.create(req.body);
         return res.status(201).send(plant);
     }
+
+    async update(req, res) {
+        const plant = await Plant.findByPk(req.params.id);
+
+        const plantUpdated = await plant.update(req.body);
+
+        return res.send(plantUpdated);
+    }
+
+    async delete(req, res) {
+        const plant = await Plant.findByPk(req.params.id);
+        await plant.destroy();
+        return res.status(204).send();
+    }
 }
 
 export default new PlantController();
