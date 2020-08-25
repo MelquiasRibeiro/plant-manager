@@ -1,4 +1,5 @@
 import Plant from '../models/Plant';
+import Stok from '../models/Stok';
 
 class PlantController {
     async index(req, res) {
@@ -9,7 +10,6 @@ class PlantController {
 
     async show(req, res) {
         const plant = await Plant.findByPk(req.params.id);
-        console.log(req.params.id);
         return res.json({ plant });
     }
 
@@ -23,6 +23,9 @@ class PlantController {
             });
         }
         const plant = await Plant.create(req.body);
+
+        await Stok.create({ plant_id: plant.id, amount: req.body.amount });
+
         return res.status(201).send(plant);
     }
 
