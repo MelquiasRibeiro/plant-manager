@@ -1,0 +1,14 @@
+# Node modules
+node_modules
+
+# Adonis directory for storing tmp files
+tmp/uploads/*
+!tmp/uploads/.gitkeep
+
+# Environment variables, never commit this file
+.env
+
+# The development sqlite file
+database/*.sqlite
+
+.vscode
