@@ -4,8 +4,9 @@ import databaseConfig from '../config/database';
 import Plant from '../app/models/Plant';
 import Stok from '../app/models/Stok';
 import Sale from '../app/models/Sale';
+import Saleitem from '../app/models/Saleitem';
 
-const models = [Plant, Sale, Stok];
+const models = [Plant, Sale, Stok, Saleitem];
 class Database {
     constructor() {
         this.init();

@@ -1,5 +1,8 @@
+/* eslint-disable radix */
+/* eslint-disable no-await-in-loop */
 import Sale from '../models/Sale';
 import Plants from '../models/Plant';
+import Saleitem from '../models/Saleitem';
 import parseStringAsArry from '../../utils/parseStringToArray';
 
 class SaleController {
@@ -14,7 +17,7 @@ class SaleController {
         const itemsArr = parseStringAsArry(req.body.items);
         let expected_price = 0;
 
-        for (let i = 0; i < itemsArr.length; i++) {
+        for (let i = 0; i < itemsArr.length; i += 1) {
             const infoPlant = await Plants.findByPk(itemsArr[i]);
             expected_price += parseInt(infoPlant.dataValues.price);
             soldPlants.push(infoPlant.dataValues);
@@ -32,6 +35,15 @@ class SaleController {
             discount,
             expected_price,
         });
+        for (let i = 0; i < soldPlants.length; i += 1) {
+            await Saleitem.create({
+                name: soldPlants[i].name,
+                description: soldPlants[i].description,
+                price: soldPlants[i].price,
+                sale_id: sale.id,
+                plant_id: soldPlants[i].id,
+            });
+        }
 
         return res.status(201).json({ itensSold: soldPlants, sale });
     }
