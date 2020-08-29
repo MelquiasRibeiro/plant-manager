@@ -17,7 +17,7 @@ module.exports = {
             expected_price: {
                 type: Sequelize.DECIMAL,
             },
-            sele_price: {
+            sale_price: {
                 type: Sequelize.DECIMAL,
             },
             discount: {

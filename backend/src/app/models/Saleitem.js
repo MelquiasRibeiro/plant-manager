@@ -4,9 +4,7 @@ class Saleitem extends Model {
     static init(sequelize) {
         super.init(
             {
-                name: Sequelize.STRING,
-                description: Sequelize.STRING,
-                price: Sequelize.DECIMAL,
+                sale_price: Sequelize.DECIMAL,
             },
             {
                 sequelize,

@@ -7,7 +7,7 @@ class Sale extends Model {
                 payment_type: Sequelize.INTEGER,
                 note: Sequelize.STRING,
                 expected_price: Sequelize.DECIMAL,
-                sele_price: Sequelize.DECIMAL,
+                sale_price: Sequelize.DECIMAL,
                 discount: Sequelize.DECIMAL,
                 items: Sequelize.STRING,
             },

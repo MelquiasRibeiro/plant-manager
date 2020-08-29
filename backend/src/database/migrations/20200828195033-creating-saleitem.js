@@ -7,13 +7,7 @@ module.exports = {
                 autoIncrement: true,
                 primaryKey: true,
             },
-            name: {
-                type: Sequelize.STRING,
-            },
-            description: {
-                type: Sequelize.STRING,
-            },
-            price: {
+            sale_price: {
                 type: Sequelize.DECIMAL,
             },
             plant_id: {
