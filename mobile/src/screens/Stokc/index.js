@@ -1,5 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import React from 'react';
+import { useNavigation } from '@react-navigation/native';
 import { Foundation, Entypo, FontAwesome5 } from '@expo/vector-icons';
 import {
     Container,
@@ -84,6 +85,11 @@ const Stock = () => {
             updatedAt: '2020-08-25T15:30:25.451Z',
         },
     ];
+    const navigation = useNavigation();
+
+    function handleNavigateToNewProduct() {
+        navigation.navigate('newProduct');
+    }
 
     return (
         <Container>
@@ -113,7 +119,7 @@ const Stock = () => {
                     </ProductContainer>
                 ))}
             </ListProductsContainer>
-            <ButtonAddNewProduct>
+            <ButtonAddNewProduct onPress={handleNavigateToNewProduct}>
                 <FontAwesome5 name="plus" size={40} color="#fafafa" />
             </ButtonAddNewProduct>
         </Container>

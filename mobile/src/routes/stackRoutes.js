@@ -3,6 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import bottomNavigation from './bottomNavigation';
+import newProduct from '../screens/NewProduct';
 
 const routes = createStackNavigator();
 
@@ -13,11 +14,12 @@ const StackRoutes = () => {
                 headerMode="none"
                 screenOptions={{
                     cardStyle: {
-                        backgroundColor: '#f0f0f5',
+                        backgroundColor: '#fafafa',
                     },
                 }}
             >
                 <routes.Screen name="Home" component={bottomNavigation} />
+                <routes.Screen name="newProduct" component={newProduct} />
             </routes.Navigator>
         </NavigationContainer>
     );
