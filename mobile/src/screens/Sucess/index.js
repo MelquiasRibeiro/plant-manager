@@ -3,12 +3,12 @@ import { View, Text } from 'react-native';
 
 // import { Container } from './styles';
 
-const Movement = () => {
+const Sucess = () => {
     return (
         <View>
-            <Text>movment</Text>
+            <Text>Sucess</Text>
         </View>
     );
 };
 
-export default Movement;
+export default Sucess;

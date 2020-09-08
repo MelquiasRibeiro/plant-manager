@@ -3,12 +3,12 @@ import { View, Text } from 'react-native';
 
 // import { Container } from './styles';
 
-const Movement = () => {
+const NewProduct = () => {
     return (
         <View>
-            <Text>movment</Text>
+            <Text>add</Text>
         </View>
     );
 };
 
-export default Movement;
+export default NewProduct;
