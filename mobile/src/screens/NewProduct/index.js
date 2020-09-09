@@ -32,6 +32,9 @@ const NewProduct = () => {
     function handleGoBack() {
         navigation.goBack();
     }
+    function handleGoToSucess() {
+        navigation.navigate('sucess');
+    }
     return (
         <Container>
             <Hearder>
@@ -85,7 +88,7 @@ const NewProduct = () => {
                         />
                     </ImageInput>
                 </InputGroupImage>
-                <SubmitButton text="Cadastrar" />
+                <SubmitButton text="Cadastrar" onPress={handleGoToSucess} />
             </FormContainer>
         </Container>
     );

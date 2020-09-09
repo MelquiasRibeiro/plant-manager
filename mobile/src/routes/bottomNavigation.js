@@ -11,6 +11,11 @@ const { Navigator, Screen } = createBottomTabNavigator();
 const routesBottom = () => {
     return (
         <Navigator
+            screenOptions={{
+                cardStyle: {
+                    backgroundColor: '#fafafa',
+                },
+            }}
             tabBarOptions={{
                 style: {
                     elevation: 0,
