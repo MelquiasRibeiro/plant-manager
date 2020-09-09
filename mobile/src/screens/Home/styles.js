@@ -109,6 +109,7 @@ export const IconContainer = styled.View`
 `;
 export const TextInfoActivity = styled.View`
     margin-left: 8px;
+    justify-content: center;
 `;
 export const Activity = styled.Text`
     font-weight: bold;
@@ -121,10 +122,11 @@ export const PaymentType = styled.Text`
     font-size: 14px;
     line-height: 16px;
     color: #a0a0a0;
+    margin-top: 4px;
 `;
 export const ActivityValue = styled.Text`
     font-size: 18px;
     line-height: 21px;
-    color: #ff1c25;
+    color: ${(props) => (props.sale ? '#5CBC71' : '#ff1c25')};
     margin-right: 8px;
 `;

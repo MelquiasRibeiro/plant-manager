@@ -33,6 +33,45 @@ import {
 } from './styles';
 
 const Home = () => {
+    const activities = [
+        {
+            id: 1,
+            saleItems: [
+                { id: 2, salePrice: 10 },
+                { id: 3, salePrice: 10 },
+                { id: 4, salePrice: 50 },
+            ],
+            payment_type: 'Cratão de Crédito',
+            note: 'Rosa do deserto',
+            amount: 70,
+            sale: true,
+        },
+        {
+            id: 2,
+            saleItems: [
+                { id: 2, salePrice: 10 },
+                { id: 3, salePrice: 10 },
+                { id: 4, salePrice: 50 },
+            ],
+            payment_type: 'Cratão de Crédito',
+            note: 'Terra e vasos',
+            amount: 70,
+            sale: true,
+        },
+        {
+            id: 3,
+            saleItems: [
+                { id: 2, salePrice: 10 },
+                { id: 3, salePrice: 10 },
+                { id: 4, salePrice: 50 },
+            ],
+            payment_type: 'Cratão de Crédito',
+            note: 'Posto de gasolina',
+            amount: 70,
+            sale: false,
+        },
+    ];
+
     return (
         <Container>
             <Hearder>
@@ -84,38 +123,39 @@ const Home = () => {
                     <Title>Esta semana</Title>
                     <DayContainer>
                         <DayName>Hoje</DayName>
-                        <ActivityContainer>
-                            <ActivityMainInfoContainer>
-                                <IconContainer>
-                                    <Feather
-                                        name="package"
-                                        size={24}
-                                        color="#ffffff"
-                                    />
-                                </IconContainer>
-                                <TextInfoActivity>
-                                    <Activity>Combustível</Activity>
-                                    <PaymentType>Cartão de crédito</PaymentType>
-                                </TextInfoActivity>
-                            </ActivityMainInfoContainer>
-                            <ActivityValue> -R$1000</ActivityValue>
-                        </ActivityContainer>
-                        <ActivityContainer>
-                            <ActivityMainInfoContainer>
-                                <IconContainer>
-                                    <Feather
-                                        name="package"
-                                        size={24}
-                                        color="#ffffff"
-                                    />
-                                </IconContainer>
-                                <TextInfoActivity>
-                                    <Activity>Terra preta</Activity>
-                                    <PaymentType>Cartão de crédito</PaymentType>
-                                </TextInfoActivity>
-                            </ActivityMainInfoContainer>
-                            <ActivityValue> -R$30</ActivityValue>
-                        </ActivityContainer>
+                        {activities.map((activity) => (
+                            <ActivityContainer key={activity.id}>
+                                <ActivityMainInfoContainer>
+                                    <IconContainer>
+                                        {activity.sale ? (
+                                            <Feather
+                                                name="package"
+                                                size={24}
+                                                color="#ffffff"
+                                            />
+                                        ) : (
+                                            <MaterialIcons
+                                                name="money-off"
+                                                size={24}
+                                                color="#ffffff"
+                                            />
+                                        )}
+                                    </IconContainer>
+                                    <TextInfoActivity>
+                                        <Activity>{activity.note} </Activity>
+                                        <PaymentType>
+                                            {activity.payment_type}
+                                        </PaymentType>
+                                    </TextInfoActivity>
+                                </ActivityMainInfoContainer>
+                                <ActivityValue sale={activity.sale}>
+                                    R${activity.amount}
+                                </ActivityValue>
+                            </ActivityContainer>
+                        ))}
+                    </DayContainer>
+                    <DayContainer>
+                        <DayName>Ontem</DayName>
                         <ActivityContainer>
                             <ActivityMainInfoContainer>
                                 <IconContainer>
