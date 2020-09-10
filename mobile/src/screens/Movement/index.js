@@ -6,6 +6,7 @@ import {
     Feather,
     MaterialIcons,
 } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 
 import {
     Container,
@@ -31,6 +32,12 @@ import {
 } from './styles';
 
 const Movement = () => {
+    const navigation = useNavigation();
+
+    function handleNavigateToNewProduct() {
+        navigation.navigate('newActivity');
+    }
+
     const activities = [
         {
             id: 1,
@@ -136,7 +143,7 @@ const Movement = () => {
                         <RevenuesTitle>Faturamento </RevenuesTitle>
                         <RevenuesValue>R$ 5.000,00</RevenuesValue>
                     </RevenueContainer>
-                    <NewActivity>
+                    <NewActivity onPress={handleNavigateToNewProduct}>
                         <FontAwesome5 name="plus" size={16} color="#fafafa" />
                     </NewActivity>
                 </UpLineContainer>
