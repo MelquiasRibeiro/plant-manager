@@ -1,5 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import React from 'react';
+import React, { useState } from 'react';
 import { Feather, FontAwesome5, SimpleLineIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import {
@@ -27,6 +27,11 @@ import {
 import SubmitButton from '../../components/SubmitButton';
 
 const NewProduct = () => {
+    const [name, setName] = useState('');
+    const [description, setDescription] = useState();
+    const [price, setPrice] = useState('');
+    const [amount, setAmount] = useState();
+
     const navigation = useNavigation();
 
     function handleGoBack() {
@@ -34,6 +39,15 @@ const NewProduct = () => {
     }
     function handleGoToSucess() {
         navigation.navigate('sucess');
+    }
+    function submmti() {
+        console.log({
+            name,
+            price,
+            description,
+            amount,
+        });
+        handleGoToSucess();
     }
     return (
         <Container>
@@ -46,12 +60,20 @@ const NewProduct = () => {
             <FormContainer>
                 <InputGruopName>
                     <Label>{'     '} Nome</Label>
-                    <InputName />
+                    <InputName
+                        value={name}
+                        onChangeText={(productname) => setName(productname)}
+                    />
                 </InputGruopName>
                 <PriceAmountContainer>
                     <InputGruopPrice>
                         <Label>{'     '} Preço</Label>
-                        <PriceInput />
+                        <PriceInput
+                            value={price}
+                            onChangeText={(productPrice) =>
+                                setPrice(productPrice)
+                            }
+                        />
                     </InputGruopPrice>
                     <InputGruopAmount>
                         <Label>{'             '} Quantidade</Label>
@@ -63,7 +85,12 @@ const NewProduct = () => {
                                     color="#fafafa"
                                 />
                             </AmountButton>
-                            <AmountInput />
+                            <AmountInput
+                                value={amount}
+                                onChangeText={(productAmount) =>
+                                    setAmount(productAmount)
+                                }
+                            />
                             <AmountButton>
                                 <FontAwesome5
                                     name="plus"
@@ -76,7 +103,12 @@ const NewProduct = () => {
                 </PriceAmountContainer>
                 <InputGroupDescription>
                     <Label>{'     '} Descrição</Label>
-                    <DescriptionInput />
+                    <DescriptionInput
+                        value={description}
+                        onChangeText={(productDescription) =>
+                            setDescription(productDescription)
+                        }
+                    />
                 </InputGroupDescription>
                 <InputGroupImage>
                     <Label>{'     '} Imagem</Label>
@@ -88,7 +120,7 @@ const NewProduct = () => {
                         />
                     </ImageInput>
                 </InputGroupImage>
-                <SubmitButton text="Cadastrar" onPress={handleGoToSucess} />
+                <SubmitButton text="Cadastrar" onPress={submmti} />
             </FormContainer>
         </Container>
     );
