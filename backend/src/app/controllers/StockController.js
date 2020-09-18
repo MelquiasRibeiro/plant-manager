@@ -1,8 +1,8 @@
-import Stok from '../models/Stok';
+import Stock from '../models/Stock';
 
-class StokController {
+class StockController {
     async update(req, res) {
-        const plantAmount = await Stok.findOne({
+        const plantAmount = await Stock.findOne({
             where: { plant_id: req.params.id },
         });
 
@@ -14,4 +14,4 @@ class StokController {
     }
 }
 
-export default new StokController();
+export default new StockController();

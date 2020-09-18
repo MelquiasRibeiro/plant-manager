@@ -1,30 +1,52 @@
 import Plant from '../models/Plant';
-import Stok from '../models/Stok';
+import Stock from '../models/Stock';
 
 class PlantController {
     async index(req, res) {
         const plants = await Plant.findAll();
 
-        return res.json({ plants });
+        const serializedPlants = plants.map((plant) => {
+            return {
+                ...plant.dataValues,
+                image_url: `http://10.0.0.111:3333/files/${plant.image}`,
+            };
+        });
+
+        return res.json({ serializedPlants });
     }
 
     async show(req, res) {
         const plant = await Plant.findByPk(req.params.id);
-        return res.json({ plant });
+        const serializedPlant = {
+            ...plant.dataValues,
+            image_url: `http://10.0.0.111:3333/files/${plant.image}`,
+        };
+
+        return res.json({ serializedPlant });
     }
 
     async store(req, res) {
+        const { name, description, price, amount } = req.body;
+
         const plantExist = await Plant.findOne({
-            where: { name: req.body.name },
+            where: { name },
         });
         if (plantExist) {
             return res.status(400).json({
                 error: 'Está planta já está cadastrada',
             });
         }
-        const plant = await Plant.create(req.body);
+        const newPlant = {
+            name,
+            description,
+            price,
+            amount,
+            image: req.file.filename,
+        };
 
-        await Stok.create({ plant_id: plant.id, amount: req.body.amount });
+        const plant = await Plant.create(newPlant);
+
+        await Stock.create({ plant_id: plant.id, amount: req.body.amount });
 
         return res.status(201).send(plant);
     }

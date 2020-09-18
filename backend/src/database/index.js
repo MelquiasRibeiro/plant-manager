@@ -2,11 +2,11 @@ import Sequelize from 'sequelize';
 
 import databaseConfig from '../config/database';
 import Plant from '../app/models/Plant';
-import Stok from '../app/models/Stok';
+import Stock from '../app/models/Stock';
 import Sale from '../app/models/Sale';
 import Saleitem from '../app/models/Saleitem';
 
-const models = [Plant, Sale, Stok, Saleitem];
+const models = [Plant, Sale, Stock, Saleitem];
 class Database {
     constructor() {
         this.init();

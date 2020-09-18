@@ -7,6 +7,7 @@ class Plant extends Model {
                 name: Sequelize.STRING,
                 description: Sequelize.STRING,
                 price: Sequelize.DECIMAL,
+                image: Sequelize.STRING,
             },
             {
                 sequelize,
