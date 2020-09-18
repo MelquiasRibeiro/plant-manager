@@ -1,6 +1,10 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import React, { useState } from 'react';
 import { Feather, FontAwesome5, SimpleLineIcons } from '@expo/vector-icons';
+import { Modal, alert } from 'react-native';
+import Constants from 'expo-constants';
+import * as Permissions from 'expo-permissions';
+import * as ImagePicker from 'expo-image-picker';
 import { useNavigation } from '@react-navigation/native';
 import {
     Container,
@@ -22,6 +26,10 @@ import {
     DescriptionInput,
     InputGroupImage,
     ImageInput,
+    ModalContaner,
+    ModalContainerButtons,
+    ModalButton,
+    ModalButtonText,
 } from './styles';
 
 import SubmitButton from '../../components/SubmitButton';
@@ -31,6 +39,8 @@ const NewProduct = () => {
     const [description, setDescription] = useState();
     const [price, setPrice] = useState('');
     const [amount, setAmount] = useState();
+    const [modalVisible, setModalVisible] = useState(false);
+    const [image, setImage] = useState();
 
     const navigation = useNavigation();
 
@@ -41,16 +51,103 @@ const NewProduct = () => {
         navigation.navigate('sucess');
     }
     function submmti() {
-        console.log({
-            name,
-            price,
-            description,
-            amount,
+        const data = new FormData();
+
+        data.append('avatar', {
+            uri: image.uri,
         });
+        data.append(name);
+        data.append(price);
+        data.append(description);
+        data.append(amount);
+
+        console.log(data);
         handleGoToSucess();
     }
+
+    async function imageGaleryPickerCall() {
+        if (Constants.platform.ios) {
+            const { status } = await Permissions.askAsync(
+                Permissions.CAMERA_ROLL
+            );
+
+            if (status !== 'granted') {
+                alert('Nós precisamos dessa permissão.');
+                return;
+            }
+        }
+
+        const data = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.All,
+        });
+
+        if (data.cancelled) {
+            return;
+        }
+
+        if (!data.uri) {
+            return;
+        }
+
+        setImage(data);
+        setModalVisible(false);
+    }
+
+    async function imageCameraPickerCall() {
+        if (Constants.platform.ios) {
+            const { status } = await Permissions.askAsync(
+                Permissions.CAMERA_ROLL
+            );
+
+            if (status !== 'granted') {
+                alert('Nós precisamos dessa permissão.');
+                return;
+            }
+        }
+
+        const data = await ImagePicker.launchCameraAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        });
+
+        if (data.cancelled) {
+            return;
+        }
+
+        if (!data.uri) {
+            return;
+        }
+
+        setImage(data);
+        setModalVisible(false);
+    }
+
     return (
         <Container>
+            <Modal
+                animationType="slide"
+                transparent
+                visible={modalVisible}
+                onRequestClose={() => {
+                    setModalVisible(false);
+                }}
+            >
+                <ModalContaner>
+                    <ModalContainerButtons>
+                        <ModalButton onPress={imageGaleryPickerCall}>
+                            <SimpleLineIcons
+                                name="picture"
+                                size={32}
+                                color="#ffff"
+                            />
+                            <ModalButtonText>{'  '}Galeria</ModalButtonText>
+                        </ModalButton>
+                        <ModalButton onPress={imageCameraPickerCall}>
+                            <Feather name="camera" size={32} color="#ffff" />
+                            <ModalButtonText>{'  '}Câmera</ModalButtonText>
+                        </ModalButton>
+                    </ModalContainerButtons>
+                </ModalContaner>
+            </Modal>
             <Hearder>
                 <IconHeader onPress={handleGoBack}>
                     <Feather name="arrow-left" size={28} color="#1A2F7B" />
@@ -112,7 +209,7 @@ const NewProduct = () => {
                 </InputGroupDescription>
                 <InputGroupImage>
                     <Label>{'     '} Imagem</Label>
-                    <ImageInput>
+                    <ImageInput onPress={() => setModalVisible(true)}>
                         <SimpleLineIcons
                             name="picture"
                             size={32}

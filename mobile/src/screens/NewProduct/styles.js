@@ -134,3 +134,28 @@ export const ImageInput = styled.TouchableOpacity`
     border: 1px solid #ff5057;
     border-radius: 21px;
 `;
+
+export const ModalContaner = styled.View`
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    background: #ffff;
+`;
+export const ModalContainerButtons = styled.View`
+    justify-content: space-between;
+`;
+export const ModalButton = styled.TouchableOpacity`
+    background: #ff5057;
+    height: 42px;
+    border-radius: 16px;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    margin: 16px;
+    flex-direction: row;
+`;
+export const ModalButtonText = styled.Text`
+    font-weight: bold;
+    font-size: 24px;
+    color: #ffff;
+`;
