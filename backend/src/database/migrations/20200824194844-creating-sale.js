@@ -25,7 +25,11 @@ module.exports = {
             },
             items: {
                 type: Sequelize.STRING,
-                allowNull: false,
+                allowNull: true,
+            },
+            isSell: {
+                type: Sequelize.BOOLEAN,
+                allowNull: true,
             },
             created_at: {
                 type: Sequelize.DATE,

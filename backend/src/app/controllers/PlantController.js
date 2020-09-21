@@ -3,7 +3,14 @@ import Stock from '../models/Stock';
 
 class PlantController {
     async index(req, res) {
-        const plants = await Plant.findAll();
+        const plants = await Plant.findAll({
+            include: [
+                {
+                    model: Stock,
+                    attributes: ['amount'],
+                },
+            ],
+        });
 
         const serializedPlants = plants.map((plant) => {
             return {
@@ -16,9 +23,16 @@ class PlantController {
     }
 
     async show(req, res) {
-        const plant = await Plant.findByPk(req.params.id);
+        const plant = await Plant.findByPk(req.params.id, {
+            include: [
+                {
+                    model: Stock,
+                    attributes: ['amount'],
+                },
+            ],
+        });
         const serializedPlant = {
-            ...plant.dataValues,
+            ...plant,
             image_url: `http://10.0.0.111:3333/files/${plant.image}`,
         };
 

@@ -3,7 +3,6 @@
 import Sale from '../models/Sale';
 import Plants from '../models/Plant';
 import Saleitem from '../models/Saleitem';
-import parseStringAsArry from '../../utils/parseStringToArray';
 
 class SaleController {
     async index(req, res) {
@@ -13,43 +12,49 @@ class SaleController {
     }
 
     async store(req, res) {
-        const soldPlants = [];
-        const itemsArr = req.body.saleItems;
-        let expected_price = 0;
-        let sale_price = 0;
-        let items = '';
+        if (req.body.isSell) {
+            const soldPlants = [];
+            const itemsArr = req.body.saleItems;
+            let expected_price = 0;
+            let sale_price = 0;
+            let items = '';
 
-        for (let i = 0; i < itemsArr.length; i += 1) {
-            items += `${itemsArr[i].id},`;
-            sale_price += parseInt(itemsArr[i].salePrice);
-            const infoPlant = await Plants.findByPk(itemsArr[i].id);
-            expected_price += parseInt(infoPlant.dataValues.price);
-            soldPlants.push(infoPlant.dataValues);
-        }
+            for (let i = 0; i < itemsArr.length; i += 1) {
+                items += `${itemsArr[i].id},`;
+                sale_price += parseInt(itemsArr[i].salePrice);
+                const infoPlant = await Plants.findByPk(itemsArr[i].id);
+                expected_price += parseInt(infoPlant.dataValues.price);
+                soldPlants.push(infoPlant.dataValues);
+            }
 
-        const { payment_type, note } = req.body;
+            const { payment_type, note } = req.body;
 
-        const discount = 100 - (sale_price * 100) / expected_price;
+            const discount = 100 - (sale_price * 100) / expected_price;
 
-        const sale = await Sale.create({
-            payment_type,
-            note,
-            sale_price,
-            items,
-            discount,
-            expected_price,
-        });
-        for (let i = 0; i < soldPlants.length; i += 1) {
-            await Saleitem.create({
-                sale_price: itemsArr[i].salePrice,
-                sale_id: sale.id,
-                plant_id: soldPlants[i].id,
+            const sale = await Sale.create({
+                payment_type,
+                note,
+                sale_price,
+                items,
+                discount,
+                expected_price,
             });
+            for (let i = 0; i < soldPlants.length; i += 1) {
+                await Saleitem.create({
+                    sale_price: itemsArr[i].salePrice,
+                    sale_id: sale.id,
+                    plant_id: soldPlants[i].id,
+                });
+            }
+
+            // return res.status(201).json({ itensSold: soldPlants, sale });
+
+            return res.status(201).json(items);
         }
 
-        // return res.status(201).json({ itensSold: soldPlants, sale });
+        const buy = await Sale.create(req.body);
 
-        return res.status(201).json(items);
+        return res.status(201).json(buy);
     }
 
     async update(req, res) {

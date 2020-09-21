@@ -16,6 +16,10 @@ class Plant extends Model {
 
         return this;
     }
+
+    static associate(models) {
+        this.hasOne(models.Stock);
+    }
 }
 
 export default Plant;

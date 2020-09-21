@@ -10,6 +10,7 @@ class Sale extends Model {
                 sale_price: Sequelize.DECIMAL,
                 discount: Sequelize.DECIMAL,
                 items: Sequelize.STRING,
+                isSell: Sequelize.BOOLEAN,
             },
             {
                 sequelize,
