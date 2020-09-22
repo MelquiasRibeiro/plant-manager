@@ -15,7 +15,7 @@ class PlantController {
         const serializedPlants = plants.map((plant) => {
             return {
                 ...plant.dataValues,
-                image_url: `http://10.0.0.111:3333/files/${plant.image}`,
+                image_url: `${process.env.APP_URL}/files/${plant.image}`,
             };
         });
 
@@ -33,7 +33,7 @@ class PlantController {
         });
         const serializedPlant = {
             ...plant,
-            image_url: `http://10.0.0.111:3333/files/${plant.image}`,
+            image_url: `${process.env.APP_URL}/files/${plant.image}`,
         };
 
         return res.json({ serializedPlant });
