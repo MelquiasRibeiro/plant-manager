@@ -27,7 +27,7 @@ module.exports = {
                 type: Sequelize.STRING,
                 allowNull: true,
             },
-            isSell: {
+            is_sell: {
                 type: Sequelize.BOOLEAN,
                 allowNull: true,
             },

@@ -12,7 +12,7 @@ class SaleController {
     }
 
     async store(req, res) {
-        if (req.body.isSell) {
+        if (req.body.is_sell) {
             const soldPlants = [];
             const itemsArr = req.body.saleItems;
             let expected_price = 0;
@@ -46,8 +46,6 @@ class SaleController {
                     plant_id: soldPlants[i].id,
                 });
             }
-
-            // return res.status(201).json({ itensSold: soldPlants, sale });
 
             return res.status(201).json(items);
         }

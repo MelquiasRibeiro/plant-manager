@@ -10,7 +10,7 @@ class Sale extends Model {
                 sale_price: Sequelize.DECIMAL,
                 discount: Sequelize.DECIMAL,
                 items: Sequelize.STRING,
-                isSell: Sequelize.BOOLEAN,
+                is_sell: Sequelize.BOOLEAN,
             },
             {
                 sequelize,
@@ -18,6 +18,10 @@ class Sale extends Model {
         );
 
         return this;
+    }
+
+    static associate(models) {
+        this.hasMany(models.Saleitem);
     }
 }
 
