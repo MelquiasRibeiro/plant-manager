@@ -1,6 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import React, { useState } from 'react';
-import { Feather, FontAwesome5, SimpleLineIcons } from '@expo/vector-icons';
+import { Feather } from '@expo/vector-icons';
 import { Picker } from '@react-native-community/picker';
 import { useNavigation } from '@react-navigation/native';
 import {

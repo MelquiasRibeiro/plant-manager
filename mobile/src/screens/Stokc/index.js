@@ -1,7 +1,8 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { Foundation, Entypo, FontAwesome5 } from '@expo/vector-icons';
+
 import {
     Container,
     Hearder,
@@ -18,73 +19,17 @@ import {
     ProductButtonEdit,
     ButtonAddNewProduct,
 } from './styles';
-
-import image1 from '../../assets/images/image1.png';
-import image2 from '../../assets/images/image2.png';
+import api from '../../services/api';
 
 const Stock = () => {
-    const plants = [
-        {
-            id: 1,
-            image_url: image1,
-            name: 'Cacto pote 8',
-            amount: 10,
-            description: 'cacto pequeno',
-            price: '10',
-            createdAt: '2020-08-25T15:30:25.451Z',
-            updatedAt: '2020-08-25T15:30:25.451Z',
-        },
-        {
-            id: 2,
-            image_url: image2,
-            name: 'Cacto pote 11',
-            amount: 10,
-            description: 'cacto pequeno',
-            price: '10',
-            createdAt: '2020-08-25T15:30:25.451Z',
-            updatedAt: '2020-08-25T15:30:25.451Z',
-        },
-        {
-            id: 3,
-            image_url: image1,
-            name: 'Cacto pote 8',
-            amount: 10,
-            description: 'cacto pequeno',
-            price: '10',
-            createdAt: '2020-08-25T15:30:25.451Z',
-            updatedAt: '2020-08-25T15:30:25.451Z',
-        },
-        {
-            id: 4,
-            image_url: image2,
-            name: 'Cacto pote 11',
-            amount: 10,
-            description: 'cacto pequeno',
-            price: '10',
-            createdAt: '2020-08-25T15:30:25.451Z',
-            updatedAt: '2020-08-25T15:30:25.451Z',
-        },
-        {
-            id: 5,
-            image_url: image1,
-            name: 'Cacto pote 8',
-            amount: 10,
-            description: 'cacto pequeno',
-            price: '10',
-            createdAt: '2020-08-25T15:30:25.451Z',
-            updatedAt: '2020-08-25T15:30:25.451Z',
-        },
-        {
-            id: 6,
-            image_url: image2,
-            name: 'Cacto pote 11',
-            amount: 10,
-            description: 'cacto pequeno',
-            price: '10',
-            createdAt: '2020-08-25T15:30:25.451Z',
-            updatedAt: '2020-08-25T15:30:25.451Z',
-        },
-    ];
+    const [plants, setPlants] = useState([]);
+
+    useEffect(() => {
+        api.get('/plants').then((response) => {
+            setPlants(response.data.serializedPlants);
+        });
+    }, []);
+
     const navigation = useNavigation();
 
     function handleNavigateToNewProduct() {
@@ -103,15 +48,15 @@ const Stock = () => {
                 {plants.map((product) => (
                     <ProductContainer key={product.id}>
                         <ProductContent>
-                            <ProductImage source={product.image_url} />
+                            <ProductImage source={{ uri: product.image_url }} />
                             <ProductNameAmountContainer>
                                 <ProductName>{product.name}</ProductName>
                                 <ProductAmount>
                                     {'   '}
-                                    {product.amount} unidades
+                                    {product.Stock.amount} unidades
                                 </ProductAmount>
                             </ProductNameAmountContainer>
-                            <ProductPrice>R$ {product.price},00</ProductPrice>
+                            <ProductPrice>R$ {product.price}</ProductPrice>
                             <ProductButtonEdit>
                                 <Entypo name="edit" size={16} color="#031a6e" />
                             </ProductButtonEdit>

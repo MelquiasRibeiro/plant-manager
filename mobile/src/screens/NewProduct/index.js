@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable import/no-extraneous-dependencies */
 import React, { useState } from 'react';
 import { Feather, FontAwesome5, SimpleLineIcons } from '@expo/vector-icons';
