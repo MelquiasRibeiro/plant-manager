@@ -3,6 +3,7 @@
 import Sale from '../models/Sale';
 import Plants from '../models/Plant';
 import Saleitem from '../models/Saleitem';
+import Stock from '../models/Stock';
 
 class SaleController {
     async index(req, res) {
@@ -44,6 +45,13 @@ class SaleController {
                     sale_price: itemsArr[i].salePrice,
                     sale_id: sale.id,
                     plant_id: soldPlants[i].id,
+                });
+                const plantAmount = await Stock.findOne({
+                    where: { plant_id: soldPlants[i].id },
+                });
+
+                await plantAmount.update({
+                    amount: plantAmount.amount - 1,
                 });
             }
 

@@ -31,12 +31,13 @@ class PlantController {
                 },
             ],
         });
-        const serializedPlant = {
-            ...plant,
-            image_url: `${process.env.APP_URL}/files/${plant.image}`,
-        };
-
-        return res.json({ serializedPlant });
+        if (plant) {
+            return res.json({
+                plant,
+                image_url: `${process.env.APP_URL}/files/${plant.image}`,
+            });
+        }
+        return res.status(404).json({ error: 'product not found' });
     }
 
     async store(req, res) {
@@ -68,6 +69,15 @@ class PlantController {
     async update(req, res) {
         const plant = await Plant.findByPk(req.params.id);
 
+        if (req.body.amount) {
+            const plantAmount = await Stock.findOne({
+                where: { plant_id: req.params.id },
+            });
+
+            await plantAmount.update({
+                amount: req.body.amount,
+            });
+        }
         const plantUpdated = await plant.update(req.body);
 
         return res.send(plantUpdated);
