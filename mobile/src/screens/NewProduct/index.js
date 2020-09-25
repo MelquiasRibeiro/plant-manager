@@ -34,6 +34,7 @@ import {
 } from './styles';
 
 import SubmitButton from '../../components/SubmitButton';
+import api from '../../services/api';
 
 const NewProduct = () => {
     const [name, setName] = useState('');
@@ -51,19 +52,23 @@ const NewProduct = () => {
     function handleGoToSucess() {
         navigation.navigate('sucess');
     }
-    function submmti() {
+    async function submmti() {
         const data = new FormData();
 
-        data.append('avatar', {
-            uri: image.uri,
-        });
-        data.append(name);
-        data.append(price);
-        data.append(description);
-        data.append(amount);
+        data.append('image', image);
+        data.append('name', name);
+        data.append('price', price);
+        data.append('description', description);
+        data.append('amount', amount);
 
-        console.log(data);
-        handleGoToSucess();
+        await api
+            .post('/plants', data)
+            .then(() => {
+                handleGoToSucess();
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     }
 
     async function imageGaleryPickerCall() {

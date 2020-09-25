@@ -1,5 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     Foundation,
     FontAwesome5,
@@ -30,107 +30,22 @@ import {
     Activity,
     ActivityValue,
 } from './styles';
+import api from '../../services/api';
 
 const Movement = () => {
+    const [activities, setActivities] = useState([]);
+
     const navigation = useNavigation();
 
     function handleNavigateToNewProduct() {
         navigation.navigate('newActivity');
     }
+    useEffect(() => {
+        api.get('/sale').then((response) => {
+            setActivities(response.data);
+        });
+    }, []);
 
-    const activities = [
-        {
-            id: 1,
-            saleItems: [
-                { id: 2, salePrice: 10 },
-                { id: 3, salePrice: 10 },
-                { id: 4, salePrice: 50 },
-            ],
-            payment_type: 'Cratão de Crédito',
-            note: 'Rosa do deserto',
-            amount: 70,
-            sale: true,
-            date: 'Dom 20/08/20',
-        },
-        {
-            id: 2,
-            saleItems: [
-                { id: 2, salePrice: 10 },
-                { id: 3, salePrice: 10 },
-                { id: 4, salePrice: 50 },
-            ],
-            payment_type: 'Cratão de Crédito',
-            note: 'Terra e vasos',
-            amount: 70,
-            sale: true,
-            date: 'Dom 20/08/20',
-        },
-        {
-            id: 3,
-            saleItems: [
-                { id: 2, salePrice: 10 },
-                { id: 3, salePrice: 10 },
-                { id: 4, salePrice: 50 },
-            ],
-            payment_type: 'Cratão de Crédito',
-            note: 'Posto de gasolina',
-            amount: 70,
-            sale: false,
-            date: 'Dom 20/08/20',
-        },
-        {
-            id: 4,
-            saleItems: [
-                { id: 2, salePrice: 10 },
-                { id: 3, salePrice: 10 },
-                { id: 4, salePrice: 50 },
-            ],
-            payment_type: 'Cratão de Crédito',
-            note: 'Posto de gasolina',
-            amount: 70,
-            sale: false,
-            date: 'Dom 20/08/20',
-        },
-        {
-            id: 5,
-            saleItems: [
-                { id: 2, salePrice: 10 },
-                { id: 3, salePrice: 10 },
-                { id: 4, salePrice: 50 },
-            ],
-            payment_type: 'Cratão de Crédito',
-            note: 'Posto de gasolina',
-            amount: 70,
-            sale: true,
-            date: 'Dom 20/08/20',
-        },
-        {
-            id: 6,
-            saleItems: [
-                { id: 2, salePrice: 10 },
-                { id: 3, salePrice: 10 },
-                { id: 4, salePrice: 50 },
-            ],
-            payment_type: 'Cratão de Crédito',
-            note: 'Posto de gasolina',
-            amount: 70,
-            sale: false,
-            date: 'Dom 20/08/20',
-        },
-        {
-            id: 7,
-            saleItems: [
-                { id: 2, salePrice: 10 },
-                { id: 3, salePrice: 10 },
-                { id: 4, salePrice: 50 },
-            ],
-            payment_type: 'Cratão de Crédito',
-            note: 'Posto de gasolina',
-            amount: 70,
-            sale: true,
-            date: 'Dom 20/08/20',
-        },
-    ];
     return (
         <Container>
             <Hearder>
@@ -156,7 +71,7 @@ const Movement = () => {
                     <ActivityContainer key={activity.id}>
                         <ActivityMainInfoContainer>
                             <IconContainer>
-                                {activity.sale ? (
+                                {activity.is_sell ? (
                                     <Feather
                                         name="package"
                                         size={24}
@@ -172,12 +87,12 @@ const Movement = () => {
                             </IconContainer>
                             <TextInfoActivity>
                                 <Activity>{activity.note} </Activity>
-                                <Info>{activity.payment_type}</Info>
-                                <Info>{activity.date}</Info>
+                                <Info />
+                                <Info>{activity.createdAt}</Info>
                             </TextInfoActivity>
                         </ActivityMainInfoContainer>
-                        <ActivityValue sale={activity.sale}>
-                            R${activity.amount}
+                        <ActivityValue sale={activity.is_sell}>
+                            R${activity.sale_price}
                         </ActivityValue>
                     </ActivityContainer>
                 ))}
