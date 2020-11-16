@@ -1,7 +1,7 @@
 # plant-manager
 :cactus: :sunflower: An application to manage the stock of a plant store  :cherry_blossom::rose:
 
-![name](https://img.shields.io/badge/Melquias-DivulgaZap-%2335C442) ![lang](https://img.shields.io/badge/language-Javascript-yellow) ![status](https://img.shields.io/badge/Status-WIP-orange)
+![name](https://img.shields.io/badge/Melquias-CleideRosas-%2335C442) ![lang](https://img.shields.io/badge/language-Javascript-yellow) ![status](https://img.shields.io/badge/Status-WIP-orange)
 
 ![cleideRosas](https://user-images.githubusercontent.com/54459438/99271879-e6f9a500-2805-11eb-9b9c-3ddfe85d33a8.png)
 
